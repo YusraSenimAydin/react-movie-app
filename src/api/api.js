@@ -1,4 +1,3 @@
-// api/api.js
 const OMDB_API_KEY = "9f5ac0a4";
 
 export const fetchMovies = async (searchQuery = "Pokemon", mediaType = "", year = "") => {

@@ -32,14 +32,17 @@ const MovieList = () => {
   };
 
   const handleMediaTypeChange = (value) => {
+    console.log('media type ', value)
     setMediaType(value);
   }
 
   const handleYearChange = (value) => {
+    console.log('year ', value)
     setSelectedYear(value);
   };
 
   const handleSearch = (value) => {
+    console.log('search ', value)
     setSearchText(value);
   };
 
@@ -64,7 +67,7 @@ const MovieList = () => {
       title: 'IMDb ID',
       dataIndex: 'imdbID',
       key: 'imdbID',
-      width: '20%',
+      width: '20%',  
       sorter: (a, b) => a.imdbID.localeCompare(b.imdbID), 
     },
   ];
@@ -84,7 +87,7 @@ const MovieList = () => {
       />
       <Table
         columns={columns}
-        dataSource={filteredData}
+        dataSource={filteredData.map((item) => ({ ...item, key: item.imdbID }))}
         loading={loading}
         onRow={(record) => ({
           onClick: () => handleMovieClick(record),
