@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieDetails } from '../api/api';
-import {  Spin } from 'antd';
-
+import { Spin, Button } from 'antd';
 
 const MovieDetail = () => {
   const [movieDetails, setMovieDetails] = useState(null);
@@ -22,8 +21,8 @@ const MovieDetail = () => {
   }, [imdbID]);
 
   if (!movieDetails) {
-    return <div className="flex justify-center items-center h-screen">  
-    <Spin size="large" tip="Loading..."/>
+    return <div className="flex justify-center items-center h-screen">
+      <Spin size="large" tip="Loading..." />
     </div>;
   }
 
@@ -41,6 +40,7 @@ const MovieDetail = () => {
           <p className="text-gray-600">Director: {movieDetails.Director}</p>
           <p className="text-gray-600">Cast: {movieDetails.Actors}</p>
           <p className="text-gray-600">IMDb Rating: {movieDetails.imdbRating}</p>
+          <Button type="primary" onClick={() => window.history.back()}>Back</Button>
         </div>
       </div>
     </div>

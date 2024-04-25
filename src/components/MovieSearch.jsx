@@ -1,17 +1,9 @@
-
-import { useState } from 'react';
 import { Input, Select } from 'antd';
+
 const { Search } = Input;
 const { Option } = Select;
 
-// eslint-disable-next-line react/prop-types
-const MovieSearch = ({ onSearch, handleMediaTypeChange, handleYearChange }) => {
-  const [searchText, setSearchText] = useState('');
-
-  const handleSearch = () => {
-    onSearch(searchText);
-  };
-
+const MovieSearch = ({ searchText, setSearchText, handleSearch, handleMediaTypeChange, handleYearChange }) => {
   return (
     <div>
       <Search
@@ -22,7 +14,8 @@ const MovieSearch = ({ onSearch, handleMediaTypeChange, handleYearChange }) => {
         onSearch={handleSearch}
         style={{ width: 300 }}
       />
-      <Select defaultValue="movie" style={{ width: 120, marginRight: 10 }} onChange={handleMediaTypeChange}>
+      <Select defaultValue="" style={{ width: 120, marginRight: 10 }} onChange={handleMediaTypeChange}>
+        <Option value="">All Types</Option>
         <Option value="movie">Movies</Option>
         <Option value="series">TV Series</Option>
         <Option value="episode">TV Episodes</Option>

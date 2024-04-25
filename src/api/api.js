@@ -1,10 +1,9 @@
-
 const OMDB_API_KEY = "9f5ac0a4";
 
 export const fetchMovies = async (searchQuery = "Pokemon") => {
   try {
     const response = await fetch(
-      `http://www.omdbapi.com/?s=${searchQuery}&apikey=${OMDB_API_KEY}`
+      `https://www.omdbapi.com/?s=${searchQuery}&apikey=${OMDB_API_KEY}` // HTTP yerine HTTPS kullanalım
     );
     if (!response.ok) {
       throw new Error("Failed to fetch movies");
@@ -20,7 +19,7 @@ export const fetchMovies = async (searchQuery = "Pokemon") => {
 export const fetchMovieDetails = async (imdbID) => {
   try {
     const response = await fetch(
-      `http://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}`
+      `https://www.omdbapi.com/?i=${imdbID}&apikey=${OMDB_API_KEY}` // HTTP yerine HTTPS kullanalım
     );
     if (!response.ok) {
       throw new Error("Failed to fetch movie details");
@@ -32,3 +31,5 @@ export const fetchMovieDetails = async (imdbID) => {
     return null; 
   }
 };
+
+export default { fetchMovies, fetchMovieDetails }; // Son olarak, 'fetchMovies' ve 'fetchMovieDetails' fonksiyonlarını dışa aktaralım
