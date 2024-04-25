@@ -7,16 +7,19 @@ import MovieSearch from './MovieSearch';
 const MovieList = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState("Pokemon");
+  const [mediaType, setMediaType] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchMovieData('Pokemon');
-  }, []);
+    fetchMovieData();
+  }, [searchText, mediaType, selectedYear]);
 
-  const fetchMovieData = async (searchQuery) => {
+  const fetchMovieData = async () => {
     setLoading(true);
     try {
-      const data = await fetchMovies(searchQuery);
+      const data = await fetchMovies(searchText, mediaType, selectedYear);
       if (data && data.length > 0) {
         setFilteredData(data);
       } else {
@@ -28,15 +31,17 @@ const MovieList = () => {
     setLoading(false);
   };
 
-
   const handleMediaTypeChange = (value) => {
-    console.log('media', value)
+    setMediaType(value);
   }
 
   const handleYearChange = (value) => {
-    console.log('Selected year:', value);
+    setSelectedYear(value);
   };
 
+  const handleSearch = (value) => {
+    setSearchText(value);
+  };
 
   const columns = [
     {
@@ -63,7 +68,6 @@ const MovieList = () => {
       sorter: (a, b) => a.imdbID.localeCompare(b.imdbID), 
     },
   ];
-  
 
   const handleMovieClick = (record) => {
     navigate(`/movie-details/${record.imdbID}`);
@@ -72,7 +76,9 @@ const MovieList = () => {
   return (
     <div>
       <MovieSearch
-        onSearch={fetchMovieData}
+        searchText={searchText}
+        setSearchText={setSearchText}
+        handleSearch={handleSearch}
         handleMediaTypeChange={handleMediaTypeChange}
         handleYearChange={handleYearChange}
       />
