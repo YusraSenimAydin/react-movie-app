@@ -27,23 +27,28 @@ const MovieDetail = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+    <div className="max-w-md mx-auto bg-white rounded-2xl shadow-md overflow-hidden md:max-w-2xl">
       <div className="md:flex">
         <div className="md:flex-shrink-0">
-          <img className="object-cover md:w-48" src={movieDetails.Poster} alt={movieDetails.Title} />
+          <img className="object-cover w-full md:w-48 h-48 md:h-auto" src={movieDetails.Poster} alt={movieDetails.Title} />
         </div>
-        <div className="p-8">
-          <h2 className="text-xl font-semibold mb-2">{movieDetails.Title}</h2>
-          <p className="text-gray-600">Release Year: {movieDetails.Year}</p>
-          <p className="text-gray-600">Duration: {movieDetails.Runtime}</p>
-          <p className="text-gray-600">Genre: {movieDetails.Genre}</p>
-          <p className="text-gray-600">Director: {movieDetails.Director}</p>
-          <p className="text-gray-600">Cast: {movieDetails.Actors}</p>
-          <p className="text-gray-600">IMDb Rating: {movieDetails.imdbRating}</p>
-          <Button type="primary" onClick={() => window.history.back()}>Back</Button>
+        <div className="p-8 flex flex-col justify-between">
+          <div>
+            <h2 className="text-xl font-semibold mb-2">{movieDetails.Title}</h2>
+            <p className="text-gray-600">Release Year: {movieDetails.Year}</p>
+            <p className="text-gray-600">Duration: {movieDetails.Runtime}</p>
+            <p className="text-gray-600">Genre: {movieDetails.Genre}</p>
+            <p className="text-gray-600">Director: {movieDetails.Director}</p>
+            <p className="text-gray-600">Cast: {movieDetails.Actors}</p>
+            <p className="text-gray-600">IMDb Rating: {movieDetails.imdbRating}</p>
+          </div>
+          <div className="mt-4 md:mt-0">
+            <Button type="primary" onClick={() => window.history.back()}>Back</Button>
+          </div>
         </div>
       </div>
     </div>
+
   );
 };
 

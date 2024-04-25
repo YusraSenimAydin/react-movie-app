@@ -1,4 +1,3 @@
-// Components/MovieSearch.js
 import { Input, Select } from 'antd';
 
 const { Search } = Input;
@@ -6,7 +5,7 @@ const { Option } = Select;
 
 const MovieSearch = ({ searchText, setSearchText, handleSearch, handleMediaTypeChange, handleYearChange }) => {
   return (
-    <div>
+    <div className="flex justify-center items-center p-2">
       <Search
         placeholder="Search movie title"
         enterButton="Search"

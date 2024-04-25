@@ -21,6 +21,7 @@ export const fetchMovies = async (searchQuery = "Pokemon", mediaType = "", year 
   }
 };
 
+
 export const fetchMovieDetails = async (imdbID) => {
   try {
     const response = await fetch(

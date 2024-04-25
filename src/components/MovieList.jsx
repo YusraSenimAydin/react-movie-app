@@ -1,30 +1,31 @@
-import { useState, useEffect } from 'react';
-import { Table } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Table, Spin, Select } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { fetchMovies } from '../api/api';
 import MovieSearch from './MovieSearch';
 
+const { Option } = Select;
+
 const MovieList = () => {
-  const [filteredData, setFilteredData] = useState([]);
+  const [allData, setAllData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("Pokemon");
   const [mediaType, setMediaType] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
-  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 10;
 
+  const navigate = useNavigate();
   useEffect(() => {
     fetchMovieData();
-  }, [searchText, mediaType, selectedYear]);
+  }, [searchText, mediaType, selectedYear, currentPage]);
 
   const fetchMovieData = async () => {
     setLoading(true);
     try {
       const data = await fetchMovies(searchText, mediaType, selectedYear);
-      if (data && data.length > 0) {
-        setFilteredData(data);
-      } else {
-        setFilteredData([]);
-      }
+      console.log("Tüm veriler:", data);
+      setAllData(data);
     } catch (error) {
       console.error('Error fetching movie data:', error);
     }
@@ -32,23 +33,21 @@ const MovieList = () => {
   };
 
   const handleMediaTypeChange = (value) => {
-    console.log('media type ', value)
     setMediaType(value);
-  }
+  };
 
   const handleYearChange = (value) => {
-    console.log('year ', value)
     setSelectedYear(value);
   };
 
-  const handleSearch = (value) => {
-    console.log('search ', value)
-    setSearchText(value);
+  const handleSearch = () => {
+    setCurrentPage(1);
+    fetchMovieData();
   };
 
   const columns = [
     {
-      title: 'Title',
+      title: 'Başlık',
       dataIndex: 'Title',
       key: 'Title',
       width: '30%',
@@ -57,7 +56,12 @@ const MovieList = () => {
       ),
     },
     {
-      title: 'Year',
+      title: 'Film Türü',
+      dataIndex: 'Type',
+      width: '10%',
+    },
+    {
+      title: 'Yıl',
       dataIndex: 'Year',
       key: 'Year',
       width: '20%',
@@ -67,13 +71,24 @@ const MovieList = () => {
       title: 'IMDb ID',
       dataIndex: 'imdbID',
       key: 'imdbID',
-      width: '20%',  
-      sorter: (a, b) => a.imdbID.localeCompare(b.imdbID), 
+      width: '20%',
+      sorter: (a, b) => a.imdbID.localeCompare(b.imdbID),
     },
   ];
 
   const handleMovieClick = (record) => {
     navigate(`/movie-details/${record.imdbID}`);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // Sayfa verilerini hesaplamak için fonksiyon
+  const getPaginatedData = () => {
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    return allData.slice(startIndex, endIndex);
   };
 
   return (
@@ -85,14 +100,22 @@ const MovieList = () => {
         handleMediaTypeChange={handleMediaTypeChange}
         handleYearChange={handleYearChange}
       />
-      <Table
-        columns={columns}
-        dataSource={filteredData.map((item) => ({ ...item, key: item.imdbID }))}
-        loading={loading}
-        onRow={(record) => ({
-          onClick: () => handleMovieClick(record),
-        })}
-      />
+      <Spin spinning={loading}>
+        <Table
+          columns={columns}
+          dataSource={getPaginatedData().map((item) => ({ ...item, key: item.imdbID }))}
+          onRow={(record) => ({
+            onClick: () => handleMovieClick(record),
+          })}
+          pagination={{
+            showSizeChanger: false,
+            total: 50,
+            current: currentPage,
+            pageSize: pageSize,
+            onChange: handlePageChange,
+          }}
+        />
+      </Spin>
     </div>
   );
 };
