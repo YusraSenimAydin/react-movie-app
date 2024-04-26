@@ -36,7 +36,7 @@ npm install
 npm run dev
 ```
 
-5. Access the application at http://localhost:3000 in your web browser.
+5. Access the application at http://localhost:5173 in your web browser.
 
 # Contributing
 Contributions to the project are welcome. To contribute:

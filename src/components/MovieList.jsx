@@ -24,7 +24,6 @@ const MovieList = () => {
     setLoading(true);
     try {
       const data = await fetchMovies(searchText, mediaType, selectedYear);
-      console.log("Tüm veriler:", data);
       setAllData(data);
     } catch (error) {
       console.error('Error fetching movie data:', error);
@@ -84,7 +83,6 @@ const MovieList = () => {
     setCurrentPage(page);
   };
 
-  // Sayfa verilerini hesaplamak için fonksiyon
   const getPaginatedData = () => {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
