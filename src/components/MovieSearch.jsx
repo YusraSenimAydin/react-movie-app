@@ -12,7 +12,7 @@ const MovieSearch = ({ searchText, setSearchText, handleSearch, handleMediaTypeC
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
         onSearch={handleSearch}
-        style={{ width: 300 }}
+        style={{ width: 400 , marginRight: 10 }}
       />
       <Select defaultValue="" style={{ width: 120, marginRight: 10 }} onChange={handleMediaTypeChange}>
         <Option value="">All Types</Option>

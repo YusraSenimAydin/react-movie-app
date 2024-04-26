@@ -47,7 +47,7 @@ const MovieList = () => {
 
   const columns = [
     {
-      title: 'Başlık',
+      title: 'Title',
       dataIndex: 'Title',
       key: 'Title',
       width: '30%',
@@ -56,12 +56,12 @@ const MovieList = () => {
       ),
     },
     {
-      title: 'Film Türü',
+      title: 'Type',
       dataIndex: 'Type',
       width: '10%',
     },
     {
-      title: 'Yıl',
+      title: 'Year',
       dataIndex: 'Year',
       key: 'Year',
       width: '20%',
